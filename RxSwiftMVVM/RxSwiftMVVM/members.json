@@ -1,0 +1,42 @@
+[
+    {
+        "name" : "토비",
+        "gender" : "female"
+    },
+    {
+        "name" : "무마니",
+        "gender" : "female"
+    },
+    {
+        "name" : "하비",
+        "gender" : "male"
+    },
+    {
+        "name" : "개굴",
+        "gender" : "female"
+    },
+    {
+        "name" : "필비",
+        "gender" : "female"
+    },
+    {
+        "name" : "태웡",
+        "gender" : "male"
+    },
+    {
+        "name" : "정석준",
+        "gender" : "male"
+    },
+    {
+        "name" : "이현호",
+        "gender" : "male"
+    },
+    {
+        "name" : "찜쓰",
+        "gender" : "male"
+    },
+    {
+        "name" : "내일날씨맑음",
+        "gender" : "male"
+    }
+]

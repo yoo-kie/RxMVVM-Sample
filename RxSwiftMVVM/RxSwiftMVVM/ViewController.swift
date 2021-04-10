@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class ViewController: UIViewController {
-
+    
+    let disposeBag: DisposeBag = DisposeBag()
+    
     static func instantiate() -> ViewController? {
         let storyboard = UIStoryboard.init(name: "Main", bundle: .main)
         
@@ -20,6 +23,17 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let service = MemberService()
+        service.fetchMembers()
+            .subscribe(
+                onNext: { members in
+                    print(members)
+                },
+                onError: { error in
+                    print(error)
+                }
+            ).disposed(by: disposeBag)
     }
     
 }
