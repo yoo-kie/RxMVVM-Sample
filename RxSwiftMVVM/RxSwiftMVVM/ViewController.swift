@@ -7,33 +7,38 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
     
-    let disposeBag: DisposeBag = DisposeBag()
+    @IBOutlet var tableView: UITableView!
     
-    static func instantiate() -> ViewController? {
+    let disposeBag: DisposeBag = DisposeBag()
+    private var viewModel: MembersListViewModel!
+    var label: UILabel = UILabel()
+    
+    static func instantiate(viewModel: MembersListViewModel) -> ViewController? {
         let storyboard = UIStoryboard.init(name: "Main", bundle: .main)
         
         guard let viewController = storyboard.instantiateInitialViewController() as? ViewController
         else { return nil }
         
+        viewController.viewModel = viewModel
         return viewController
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let service = MemberService()
-        service.fetchMembers()
-            .subscribe(
-                onNext: { members in
-                    print(members)
-                },
-                onError: { error in
-                    print(error)
-                }
-            ).disposed(by: disposeBag)
+        navigationItem.title = viewModel.title
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        // (@escaping (Int, Sequence.Element, Cell) -> Void)로 커링된 인자값을 가진다.
+        viewModel.fetchMemberViewModel()
+            .observe(on: MainScheduler.instance)
+            .bind(to: tableView.rx.items(cellIdentifier: "cell")) { index, viewModel, cell in
+                cell.textLabel?.text = viewModel.displayText
+            }.disposed(by: disposeBag)
     }
     
 }

@@ -8,7 +8,11 @@
 import Foundation
 import RxSwift
 
-class MemberService {
+protocol MemberServiceProtocol {
+    func fetchMembers() -> Observable<[Member]>
+}
+
+final class MemberService: MemberServiceProtocol {
     
     func fetchMembers() -> Observable<[Member]> {
         return Observable.create { observer -> Disposable in

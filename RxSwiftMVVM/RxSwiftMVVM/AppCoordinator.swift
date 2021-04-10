@@ -16,7 +16,9 @@ class AppCoordinator {
     }
     
     func start() {
-        guard let viewController = ViewController.instantiate() else { return }
+        guard let viewController = ViewController.instantiate(viewModel: MembersListViewModel())
+        else { return }
+        
         let navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
