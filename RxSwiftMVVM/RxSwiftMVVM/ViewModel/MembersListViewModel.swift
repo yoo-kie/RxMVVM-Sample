@@ -14,16 +14,16 @@ final class MembersListViewModel {
     
     private let service: MemberServiceProtocol
     
+    // 의존성 분리를 위해 Protocol 사용?
     init(service: MemberServiceProtocol = MemberService()) {
         self.service = service
     }
     
     func fetchMemberViewModel() -> Observable<[MemberViewModel]> {
-        service.fetchMembers().map {
-            $0.map {
-                MemberViewModel(member: $0)
+        service.fetchMembers() // Observable<[Member]>
+            .map {
+                $0.map { MemberViewModel(member: $0) } // Member를 MemberViewModel로 변환
             }
-        }
     }
     
 }
